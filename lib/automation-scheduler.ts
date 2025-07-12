@@ -352,7 +352,8 @@ export class AutomationScheduler {
       userId,
       userPlan: 'free',
       isSchedulingEnabled: false,
-      schedules: []
+      schedules: [],
+      lastUpdated: new Date()
     };
     return userSchedule;
   }
