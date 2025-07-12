@@ -52,7 +52,7 @@ export async function loginWithPuppeteer(config: AutomationConfig): Promise<any[
     console.log('🔐 Puppeteer로 로그인 중...');
     
     browser = await puppeteer.launch({
-      headless: 'new',
+      headless: true,
       args: [
         '--no-sandbox', 
         '--disable-setuid-sandbox',

@@ -14,17 +14,20 @@ export interface AutomationConfig {
 }
 
 export interface ProgressUpdate {
-  type: 'status' | 'collecting' | 'processing' | 'price' | 'error' | 'total';
+  type: 'status' | 'collecting' | 'processing' | 'price' | 'error' | 'total' | 'complete' | 'success';
   message: string;
   current?: number;
   total?: number;
   itemNo?: string;
+  timestamp?: string;
 }
 
 export interface AutomationResult {
   success: boolean;
   totalItems: number;
   processedItems: number;
+  processedCount?: number; // 추가
+  totalCount?: number; // 추가
   errors: string[];
   summary: string;
 }
