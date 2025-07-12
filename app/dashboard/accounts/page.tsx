@@ -106,7 +106,8 @@ export default function AccountsPage() {
           s2b_login_id: form.s2bLoginId,
           s2b_password: form.s2bPassword,
           price_increase_rate: form.priceIncreaseRate,
-          is_active: true
+          is_active: true,
+          is_default: false
         });
 
         if (error) {
