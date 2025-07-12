@@ -99,7 +99,7 @@ export default function SchedulingPage() {
       if (accountsData) {
         setAccounts(accountsData);
         // 활성화된 계정 모두 선택
-        const activeAccountIds = new Set(accountsData.map((acc: S2BAccount) => acc.id));
+        const activeAccountIds = new Set<string>(accountsData.map((acc: S2BAccount) => acc.id));
         setSelectedAccounts(activeAccountIds);
       }
 
