@@ -353,7 +353,7 @@ export class AutomationScheduler {
       userPlan: 'free',
       isSchedulingEnabled: false,
       schedules: [],
-      lastUpdated: new Date()
+      lastUpdated: new Date().toISOString()
     };
     return userSchedule;
   }
