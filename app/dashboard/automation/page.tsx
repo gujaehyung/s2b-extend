@@ -157,6 +157,10 @@ export default function AutomationPage() {
 
       const data = await response.json();
       
+      if (!response.ok) {
+        throw new Error(data.error || '자동화 시작에 실패했습니다.');
+      }
+      
       if (data.success) {
         setStatus(prev => ({ ...prev, sessionId: data.sessionId }));
         
