@@ -96,7 +96,8 @@ export default function AutomationPage() {
     if (!user?.id) return;
     const { data } = await s2bAccounts.getAll(user.id);
     if (data) {
-      const accountsData = data as S2BAccount[];
+      // Type casting for Supabase data
+      const accountsData = data as unknown as S2BAccount[];
       setAccounts(accountsData);
       if (accountsData.length > 0 && !selectedAccount) {
         setSelectedAccount(accountsData[0].id);

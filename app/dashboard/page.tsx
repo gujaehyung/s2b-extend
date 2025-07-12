@@ -86,7 +86,7 @@ export default function DashboardPage() {
     if (!user?.id) return;
     const { data } = await s2bAccounts.getAll(user.id);
     if (data) {
-      const accountsData = data as S2BAccount[];
+      const accountsData = data as unknown as S2BAccount[];
       setAccounts(accountsData);
       if (accountsData.length > 0 && !quickRunAccount) {
         setQuickRunAccount(accountsData[0].id);
