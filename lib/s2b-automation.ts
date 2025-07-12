@@ -465,7 +465,29 @@ export class ProcessedItemsManager {
     this.processedData = this.loadProcessedItems();
   }
 
-  private loadProcessedItems(): { date: string; items: Set<string> } {
+  public addProcessedItem(itemNo: string): void {
+    this.processedData.items.add(itemNo);
+    this.saveProcessedItems();
+  }
+
+  public saveProcessedItem(itemNo: string, processedData: any): void {
+    this.processedData.items.add(itemNo);
+    this.saveProcessedItems();
+  }
+
+  private saveProcessedItems(): void {
+    try {
+      const dataToSave = {
+        date: this.processedData.date,
+        items: [...this.processedData.items]
+      };
+      require('fs').writeFileSync(this.filePath, JSON.stringify(dataToSave, null, 2));
+    } catch (error) {
+      console.error('처리된 항목 저장 실패:', error);
+    }
+  }
+
+  public loadProcessedItems(): { date: string; items: Set<string> } {
     try {
       const today = new Date().toISOString().split('T')[0];
 
