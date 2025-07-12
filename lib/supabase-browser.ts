@@ -1,4 +1,4 @@
-import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import { createClient as createSupabase } from '@supabase/supabase-js'
 
 export function createClient() {
   const supabaseUrl = 'https://pixpjdiytwicrrsmbcyi.supabase.co'
@@ -6,5 +6,5 @@ export function createClient() {
   
   console.log('Creating Supabase client with URL:', supabaseUrl)
   
-  return createSupabaseClient(supabaseUrl, supabaseAnonKey)
+  return createSupabase(supabaseUrl, supabaseAnonKey)
 }
