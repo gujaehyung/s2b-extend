@@ -79,7 +79,7 @@ export default function AccountsPage() {
       setIsLoading(true);
       const { data, error } = await s2bAccounts.getAll(user.id);
       if (error) throw error;
-      setAccounts(data || []);
+      setAccounts((data as S2BAccount[]) || []);
     } catch (err) {
       console.error('계정 목록 로드 오류:', err);
       setError('계정 목록을 불러오는데 실패했습니다.');
