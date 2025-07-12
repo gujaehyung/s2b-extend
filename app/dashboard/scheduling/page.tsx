@@ -99,7 +99,7 @@ export default function SchedulingPage() {
       if (accountsData) {
         setAccounts(accountsData);
         // 활성화된 계정 모두 선택
-        const activeAccountIds = new Set(accountsData.map(acc => acc.id));
+        const activeAccountIds = new Set(accountsData.map((acc: S2BAccount) => acc.id));
         setSelectedAccounts(activeAccountIds);
       }
 
@@ -128,7 +128,7 @@ export default function SchedulingPage() {
 
         // 스케줄링이 활성화되어 있고 스케줄이 있는 경우에만 업데이트
         if (data.isSchedulingEnabled && data.schedules.length > 0) {
-          const scheduledAccountIds = new Set(
+          const scheduledAccountIds = new Set<string>(
             data.schedules.filter((s: Schedule) => s.isActive).map((s: Schedule) => s.accountId)
           );
           setSelectedAccounts(scheduledAccountIds);
