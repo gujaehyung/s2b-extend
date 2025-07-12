@@ -44,6 +44,7 @@ export interface S2BAccount {
   is_active: boolean
   created_at: string
   updated_at: string
+  last_run_at?: string | null
 }
 
 // 인증 관련 헬퍼 함수들
