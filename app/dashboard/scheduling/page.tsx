@@ -97,9 +97,9 @@ export default function SchedulingPage() {
       // 계정 목록 로드 (활성 계정만)
       const { data: accountsData } = await s2bAccounts.getAll(user.id);
       if (accountsData) {
-        setAccounts(accountsData);
+        setAccounts(accountsData as unknown as S2BAccount[]);
         // 활성화된 계정 모두 선택
-        const activeAccountIds = new Set<string>(accountsData.map((acc: S2BAccount) => acc.id));
+        const activeAccountIds = new Set<string>((accountsData as unknown as S2BAccount[]).map((acc: S2BAccount) => acc.id));
         setSelectedAccounts(activeAccountIds);
       }
 
