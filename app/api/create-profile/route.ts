@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
     const authHeader = request.headers.get('authorization');
     if (!authHeader) {
@@ -13,32 +13,40 @@ export async function GET(request: NextRequest) {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://pixpjdiytwicrrsmbcyi.supabase.co';
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBpeHBqZGl5dHdpY3Jyc21iY3lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0Mjc1MzMsImV4cCI6MjA2NzAwMzUzM30.I12ihzcXEhGl2xvQUeJEoCeS-PAzAgfm2HJsTs9Bg7E';
     
-    const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-      global: {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      }
-    });
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
     
-    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    const { data: { user }, error: userError } = await supabase.auth.getUser(accessToken);
     
     if (userError || !user) {
       return NextResponse.json({ error: 'User not found', userError }, { status: 401 });
     }
 
-    // 프로필 확인
+    const body = await request.json();
+    
+    // 프로필 생성
     const { data: profile, error: profileError } = await supabase
       .from('user_profiles')
-      .select('*')
-      .eq('id', user.id)
+      .insert({
+        id: user.id,
+        email: user.email,
+        name: body.name || '사용자',
+        company: body.company || '',
+        phone: body.phone || '',
+        plan: body.plan || 'free',
+        role: body.role || 'user',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      })
+      .select()
       .single();
 
+    if (profileError) {
+      return NextResponse.json({ error: profileError }, { status: 400 });
+    }
+
     return NextResponse.json({
-      user,
-      profile,
-      profileError,
-      hasProfile: !!profile
+      success: true,
+      profile
     });
 
   } catch (error) {

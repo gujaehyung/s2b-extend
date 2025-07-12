@@ -178,7 +178,6 @@ export const s2bAccounts = {
       .from('s2b_accounts')
       .select('*')
       .eq('user_id', userId)
-      .eq('is_active', true)
       .order('is_default', { ascending: false })
       .order('created_at', { ascending: false })
     return { data, error }
