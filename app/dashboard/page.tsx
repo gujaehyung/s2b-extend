@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { s2bAccounts, S2BAccount } from '@/lib/supabase';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import { 
   ChartBarIcon, 
   CalendarIcon, 
@@ -38,6 +39,14 @@ const ClientDate = dynamic(() => import('@/components/ClientDate'), { ssr: false
 
 export default function DashboardPage() {
   const { user, profile, loading, session } = useAuth();
+  const router = useRouter();
+  
+  // 클라이언트 사이드에서 인증 체크
+  useEffect(() => {
+    if (!loading && !session) {
+      router.push('/login');
+    }
+  }, [loading, session, router]);
   const [accounts, setAccounts] = useState<S2BAccount[]>([]);
   const [todayStats, setTodayStats] = useState({
     processed: 0,
