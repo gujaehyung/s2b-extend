@@ -66,7 +66,7 @@ export default function AdminPage() {
       }
       
       console.log('로드된 사용자 수:', data?.length || 0);
-      setUsers(data || []);
+      setUsers((data as unknown as UserProfile[]) || []);
     } catch (err) {
       console.error('사용자 목록 로드 오류:', err);
       setError(`사용자 목록을 불러오는데 실패했습니다: ${err instanceof Error ? err.message : String(err)}`);

@@ -96,10 +96,11 @@ export default function AutomationPage() {
     if (!user?.id) return;
     const { data } = await s2bAccounts.getAll(user.id);
     if (data) {
-      setAccounts(data);
-      if (data.length > 0 && !selectedAccount) {
-        setSelectedAccount(data[0].id);
-        setPriceIncreaseRate(data[0].price_increase_rate);
+      const accountsData = data as S2BAccount[];
+      setAccounts(accountsData);
+      if (accountsData.length > 0 && !selectedAccount) {
+        setSelectedAccount(accountsData[0].id);
+        setPriceIncreaseRate(accountsData[0].price_increase_rate);
       }
     }
   };

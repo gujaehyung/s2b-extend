@@ -86,9 +86,10 @@ export default function DashboardPage() {
     if (!user?.id) return;
     const { data } = await s2bAccounts.getAll(user.id);
     if (data) {
-      setAccounts(data);
-      if (data.length > 0 && !quickRunAccount) {
-        setQuickRunAccount(data[0].id);
+      const accountsData = data as S2BAccount[];
+      setAccounts(accountsData);
+      if (accountsData.length > 0 && !quickRunAccount) {
+        setQuickRunAccount(accountsData[0].id);
       }
     }
   };

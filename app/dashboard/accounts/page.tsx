@@ -61,7 +61,7 @@ export default function AccountsPage() {
       if (error) {
         console.error('계정 로드 오류:', error);
       } else if (data) {
-        setAccounts(data);
+        setAccounts(data as S2BAccount[]);
       }
     } catch (error) {
       console.error('계정 로드 실패:', error);
