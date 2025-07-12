@@ -57,8 +57,17 @@ class AutomationManager extends EventEmitter {
     return Array.from(this.sessions.values()).filter(session => session.userId === userId);
   }
 
+  // 모든 세션 가져오기
+  getAllSessions(): { [key: string]: AutomationSession } {
+    const allSessions: { [key: string]: AutomationSession } = {};
+    this.sessions.forEach((session, sessionId) => {
+      allSessions[sessionId] = session;
+    });
+    return allSessions;
+  }
+
   // 세션 상태 업데이트
-  updateSessionStatus(sessionId: string, status: AutomationSession['status']): void {
+  updateSessionStatus(sessionId: string, status: AutomationSession['status'], message?: string): void {
     const session = this.sessions.get(sessionId);
     if (session) {
       session.status = status;
