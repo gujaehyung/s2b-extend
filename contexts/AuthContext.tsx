@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       if (profileData) {
         // DB 데이터를 기본으로 사용
-        setProfile(profileData);
+        setProfile(profileData as unknown as UserProfile);
         console.log('프로필 로드 완료 (refreshProfile):', profileData);
       } else {
         // 프로필이 없으면 메타데이터 기반으로 임시 생성
